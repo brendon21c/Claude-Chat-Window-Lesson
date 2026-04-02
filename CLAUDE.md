@@ -38,6 +38,25 @@ When you hit an error:
 **3. Keep workflows current**
 Workflows should evolve as you learn. When you find better methods, discover constraints, or encounter recurring issues, update the workflow. That said, don't create or overwrite workflows without asking unless I explicitly tell you to. These are your instructions and need to be preserved and refined, not tossed after one use.
 
+## Model Selection
+
+Choose the tier based on task complexity, not habit. Default to the cheapest tier that can do the job reliably. Use your knowledge of the latest Anthropic releases — or query the Models API — to determine the current best model for each tier.
+
+| Tier | When to use |
+|---|---|
+| **Fast** | Simple tasks — classification, formatting, short Q&A, data extraction |
+| **Balanced** | General work — writing, coding, summarization, most tool use |
+| **Powerful** | Complex reasoning — multi-step planning, architecture decisions, ambiguous problems |
+
+**Rules:**
+- Subagents doing narrow, well-defined work → Fast tier
+- Main orchestrating agent coordinating a workflow → Balanced tier
+- Only reach for Powerful when the task genuinely requires deep reasoning
+- When in doubt, start Balanced and upgrade only if results are poor
+- Never default to Powerful — cost compounds fast in multi-agent runs
+
+
+
 ## The Self-Improvement Loop
 
 Every failure is a chance to make the system stronger:
@@ -65,6 +84,17 @@ credentials.json, token.json  # Google OAuth (gitignored)
 ```
 
 **Core principle:** Local files are just for processing. Anything I need to see or use lives in cloud services. Everything in `.tmp/` is disposable.
+
+## Code Style
+
+**Always comment code, in any language.**
+- Add a comment to every function/route/class explaining what it does and *why*
+- Inline comments on any line that isn't immediately obvious
+- Explain the *reason* behind a choice, not just what the code does
+  - Good: `# snapshot taken before streaming to prevent race conditions`
+  - Bad: `# copy the list`
+- This applies to Python, JavaScript, HTML scripts, SQL, bash — everything
+
 
 ## Bottom Line
 
